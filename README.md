@@ -27,7 +27,23 @@ Or directly include it in your test runner with `/assets/blanket.js` and `/asset
 
 ## Usage
 
+For Blanket.js
 [Blanket JS Usage](http://blanketjs.org/)
+
+Adding JS Folders that you want covered by Blanket.  Note: it's not very smart at the moment.
+
+In jasmine.yml
+
+    included_blanket_folders:
+      - '/backbone/'
+
+    excluded_blanket_folders:
+      - '__spec__'
+      - '/templates/'
+
+In jasmine_helper.rb
+
+    Jasmine::Blanket.load_configuration_from_yaml
 
 ## Version
 

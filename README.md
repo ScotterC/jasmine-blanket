@@ -29,6 +29,10 @@ Or directly include it in your test runner with `/assets/blanket.js` and `/asset
 
 [Blanket JS Usage](http://blanketjs.org/)
 
+## Version
+
+Matches Jasmine version
+
 ## Contributing
 
 1. Fork it ( https://github.com/ScotterC/jasmine-blanket/fork )

@@ -1,3 +1,5 @@
+require 'rails'
+require 'blanket/rails'
 require "jasmine-blanket/engine"
 require "jasmine-blanket/version"
 

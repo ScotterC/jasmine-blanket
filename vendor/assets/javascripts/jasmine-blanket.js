@@ -1,9 +1,9 @@
 // version 1.1.5
-// https://raw.githubusercontent.com/alex-seville/blanket/master/src/adapters/jasmine-blanket.js
+// https://raw.githubusercontent.com/alex-seville/blanket/master/src/adapters/jasmine-2.x-blanket.js
 
 (function() {
 
-    if (typeof jasmine === "undefined") {
+    if (! jasmine) {
         throw new Exception("jasmine library does not exist in global namespace!");
     }
 
@@ -44,17 +44,16 @@
     BlanketReporter.finished_at = null; // will be updated after all files have been written
 
     BlanketReporter.prototype = {
-        reportSpecStarting: function(spec) {
+        specStarted: function(spec) {
             blanket.onTestStart();
         },
 
-        reportSpecResults: function(suite) {
-            var results = suite.results();
-
-            blanket.onTestDone(results.totalCount,results.passed());
+        specDone: function(result) {
+            var passed = result.status === "passed" ? 1 : 0;
+            blanket.onTestDone(1,passed);
         },
 
-        reportRunnerResults: function(runner) {
+        jasmineDone: function() {
             blanket.onTestsDone();
         },
 
@@ -67,27 +66,20 @@
         }
     };
 
-
     // export public
     jasmine.BlanketReporter = BlanketReporter;
 
     //override existing jasmine execute
+    var originalJasmineExecute = jasmine.getEnv().execute;
     jasmine.getEnv().execute = function(){ console.log("waiting for blanket..."); };
 
-    //check to make sure requirejs is completed before we start the test runner
-    var allLoaded = function() {
-        return window.jasmine.getEnv().currentRunner().specs().length > 0 && blanket.requireFilesLoaded();
-    };
 
     blanket.beforeStartTestRunner({
         checkRequirejs:true,
-        condition: allLoaded,
         callback:function(){
             jasmine.getEnv().addReporter(new jasmine.BlanketReporter());
-            window.jasmine.getEnv().currentRunner().execute();
-            jasmine.getEnv().execute = function () {
-                jasmine.getEnv().currentRunner().execute();
-            };
+            jasmine.getEnv().execute = originalJasmineExecute;
+            jasmine.getEnv().execute();
         }
     });
 })();

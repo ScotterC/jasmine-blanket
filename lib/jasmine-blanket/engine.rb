@@ -1,3 +1,4 @@
+
 module Jasmine
   module Blanket
     class Engine < ::Rails::Engine

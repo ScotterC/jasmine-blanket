@@ -2,6 +2,7 @@ require "jasmine/blanket/version"
 
 module Jasmine
   module Blanket
-    # Your code goes here...
+    class Engine < ::Rails::Engine
+    end
   end
 end

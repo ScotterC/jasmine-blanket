@@ -41,13 +41,34 @@ In jasmine.yml
       - '__spec__'
       - '/templates/'
 
+    coverage_threshold: 90
+
 In jasmine_helper.rb
 
     Jasmine::Blanket.load_configuration_from_yaml
 
+In Browser
+
+    rake jasmine
+
+Headless or CI
+
+    rake jasmine:ci
+
+## Acknowledgements
+
+Jasmine adaptor is from @alex-seville's [Blanket.js]((http://blanketjs.org/))
+Travis Coverage JS is also @alex-seville's [TravisCov](https://github.com/alex-seville/travis-cov)
+
 ## Version
 
-Matches Jasmine version
+Matches Jasmine version with a minor version
+
+## TODO
+
+* Testing
+* Clean up the configuration hacks
+* Find a way around monkey patching jasmine-gem
 
 ## Contributing
 
